@@ -15,21 +15,27 @@ import Profile from '../pages/Profile'
 import Register from '../pages/Register'
 import ProtectedRoute from '../components/ProtectedRoute'
 import CategoryCard from '../components/CategoryCard'
+import CategoryExams from '../pages/CategoryExams'
+import ExamInstructions from '../pages/ExamInstructions'
+import ExamScreen from '../pages/ExamScreen'
+import ExamStart from '../pages/ExamStart'
 
 const AppRoutes = () => {
   return (
     <Routes>
         <Route path='/' element={ <MainLayout><Home/></MainLayout>}/>
         <Route path='/examslist' element={ <ProtectedRoute><MainLayout><ExamsList /></MainLayout></ProtectedRoute>}/>
-        <Route path="/examslist/:category" element={<ProtectedRoute><MainLayout><CategoryCard /></MainLayout></ProtectedRoute>}/>
+        <Route path="/examslist/:category" element={<ProtectedRoute><MainLayout><CategoryExams /></MainLayout></ProtectedRoute>}/>
         <Route path='/profile' element={<MainLayout><Profile/></MainLayout>}/>
         <Route path='/mocklist' element={<MainLayout><MockList/></MainLayout>}/>
         <Route path='/login' element={<MainLayout><Login/></MainLayout>}/>
         <Route path='/register' element={<MainLayout><Register/></MainLayout>}/>
         <Route path='/mocktest' element={<MainLayout><MockTest/></MainLayout>}/>
         <Route path='/result' element={<MainLayout><Result/></MainLayout>}/>
-    </Routes>
-  )
+          <Route path="/exams/:examId/instructions" element={<ProtectedRoute><ExamInstructions /></ProtectedRoute>} />
+      <Route path="/exams/:examId/start" element={<ProtectedRoute><ExamStart/></ProtectedRoute>} />
+   </Routes>
+)
 }
 
 export default AppRoutes

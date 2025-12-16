@@ -1,15 +1,13 @@
 import { useNavigate } from "react-router-dom";
 
-const CategoryCard = ({ title, count }) => {
-    console.log("first",title,count)
+const CategoryCard = ({ category, exams = [] }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    if (!title) {
-      console.error("Category title is missing");
-      return;
-    }
-    navigate(`/examslist/${title.toLowerCase()}`);
+    if (!category) return;
+    navigate(`/examslist/${category.toLowerCase()}`, {
+      state: { exams },
+    });
   };
 
   return (
@@ -17,8 +15,12 @@ const CategoryCard = ({ title, count }) => {
       onClick={handleClick}
       className="cursor-pointer bg-white rounded-xl shadow p-6 hover:shadow-lg transition"
     >
-      <h3 className="text-xl font-bold mb-2">{title || "Unknown"}</h3>
-      <p className="text-gray-600">{count || 0} Tests Available</p>
+      <h3 className="text-xl font-bold mb-2">
+        {category || "Unknown Category"}
+      </h3>
+      <p className="text-gray-600">
+        {exams.length} Mock Tests Available
+      </p>
     </div>
   );
 };

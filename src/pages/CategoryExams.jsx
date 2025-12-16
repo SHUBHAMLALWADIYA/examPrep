@@ -1,17 +1,18 @@
-import { useParams } from "react-router-dom";
-import exams from "../data/exams";
+import { useParams, useLocation, Navigate } from "react-router-dom";
+import allExams from "../data/exams";
 import ExamCard from "../components/ExamCard";
 
 const CategoryExams = () => {
   const { category } = useParams();
+  const location = useLocation();
 
-  const filteredExams = exams.filter(
-    exam => exam.category.toLowerCase() === category
-  );
+  if (!category) return <Navigate to="/examslist" />;
 
-  if (filteredExams.length === 0) {
-    return <p>No tests available for this category.</p>;
-  }
+  const exams =
+    location.state?.exams ||
+    allExams.filter(
+      exam => exam.category.toLowerCase() === category.toLowerCase()
+    );
 
   return (
     <div>
@@ -20,7 +21,7 @@ const CategoryExams = () => {
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredExams.map((exam) => (
+        {exams.map(exam => (
           <ExamCard key={exam.id} exam={exam} />
         ))}
       </div>
